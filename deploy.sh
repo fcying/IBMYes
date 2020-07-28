@@ -45,7 +45,9 @@ if [ ! -f "$HOME/.bluemix/cfcli/cf" ]; then
 fi
 
 cd ./v2ray-cloudfoundry
-#$IBMCLOUD target -g $RESOURSE_ID
+if [ -n "$RESOURSE_ID" ]; then
+    $IBMCLOUD target -g $RESOURSE_ID
+fi
 $IBMCLOUD target --cf
 
 $IBMCLOUD cf push

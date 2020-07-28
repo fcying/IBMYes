@@ -1,9 +1,4 @@
 {
-  "log" : {
-    "access": "",
-    "error": "",
-    "loglevel": "warning"    //debug info warning
-  },
   "inbounds": [
     {
       "sniffing": {
