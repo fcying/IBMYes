@@ -2,7 +2,8 @@ fork [https://github.com/CCChieh/IBMYes](https://github.com/CCChieh/IBMYes)
 
 
 # 更新内容:
-* `Secrets` 加入 `V2_ID`, `V2_PATH`, 对应`vmess id`和`ws path`
+* `Secrets` 加入 `V2_ID`, `V2_PATH`, `ALTER_ID`,  
+  对应`vmess id`, `ws path`, `alterId`
 * 每周自动更新`v2ray`后重新`push`
 
 
@@ -46,6 +47,7 @@ addEventListener(
   `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不用.  
   `V2_ID`:　　　　　　vmess id  
   `V2_PATH`:　　　　　ws path
+  `ALTER_ID`:　　　　alterId
 * 修改项目`README.md`(打开文件, 右上角有个 `Edit this file`的图标), 随便加个空格, 点 `Commit changes`.
 * 点击项目 Actions, 可以看到有个`IBM Cloud Deploy` 正在工作了, 每周会自动部署一次(IBM 10天不用会停).
 
@@ -56,13 +58,13 @@ addEventListener(
     type: vmess
     server: cloudflare_workers.dev
     port: 443
-    uuid: 12345678-1234-1234-1234-123456781234
-    alterId: 0
+    uuid: V2_ID
+    alterId: ALTER_ID
     cipher: none
     udp: true
     tls: true
     network: ws
-    ws-path: /path
+    ws-path: /V2_PATH
 ```
     server: cloudflare.com
 `server` 可以使用 `cloudflare.com`或者别的CF的比较快的IP,对应的加一个伪装设置就行

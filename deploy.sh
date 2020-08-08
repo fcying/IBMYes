@@ -30,6 +30,7 @@ if [ ! -f "./v2ray-cloudfoundry/v2ray/v2ray" ]; then
     rm -fv v2ray.zip
     sed "s/V2_ID/$V2_ID/" config.json -i
     sed "s/V2_PATH/$V2_PATH/" config.json -i
+    sed "s/ALTER_ID/$ALTER_ID/" config.json -i
     sed "s/IBM_APP_NAME/$IBM_APP_NAME/" ../manifest.yml -i
     popd
 fi

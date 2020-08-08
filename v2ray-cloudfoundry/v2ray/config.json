@@ -12,7 +12,7 @@
         "clients": [
           {
             "id": "V2_ID",
-            "alterId": 0
+            "alterId": ALTER_ID
           }
         ]
       },
