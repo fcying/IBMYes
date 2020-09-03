@@ -44,10 +44,10 @@ addEventListener(
 * 点击 `Secrets` 建立以下几个`secret`:  
   `IBM_ACCOUNT`:　　　IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.  
   `IBM_APP_NAME`:　　应用的名称.  
-  `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不用.  
+  `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不用. 可以在IBM Cloud的管理->账户->资源组里面找到.  
   `V2_ID`:　　　　　　vmess id  
-  `V2_PATH`:　　　　　ws path
-  `ALTER_ID`:　　　　alterId
+  `V2_PATH`:　　　　　ws path  
+  `ALTER_ID`:　　　　alterId  
 * 修改项目`README.md`(打开文件, 右上角有个 `Edit this file`的图标), 随便加个空格, 点 `Commit changes`.
 * 点击项目 Actions, 可以看到有个`IBM Cloud Deploy` 正在工作了, 每周会自动部署一次(IBM 10天不用会停).
 
