@@ -16,6 +16,7 @@ env:
   IBM_ACCOUNT: ${{ secrets.IBM_ACCOUNT }}
   RESOURSE_ID: ${{ secrets.RESOURSE_ID }}
   IBM_APP_NAME: ${{ secrets.IBM_APP_NAME }}
+  APP_NAME: ${{ secrets.APP_NAME }}
   V2_ID: ${{ secrets.V2_ID }}
   V2_PATH: ${{ secrets.V2_PATH }}
   ALTER_ID: ${{ secrets.ALTER_ID }}

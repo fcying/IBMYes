@@ -45,6 +45,7 @@ addEventListener(
   `IBM_ACCOUNT`:　　　IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.  
   `IBM_APP_NAME`:　　应用的名称.  
   `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不用. 可以在IBM Cloud的管理->账户->资源组里面找到.  
+  `APP_NAME`:　　　　　v2ray改名, 防扫.  
   `V2_ID`:　　　　　　vmess id  
   `V2_PATH`:　　　　　ws path  
   `ALTER_ID`:　　　　alterId  
