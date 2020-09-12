@@ -25,13 +25,21 @@ if [ ! -f "$IBMCLOUD" ]; then
     rm -fv ibm_cli.tgz
 fi
 
+# fake root
 if [ -z $APP_NAME ]; then
     APP_NAME=test
 fi
 
-if [ ! -f "./v2ray-cloudfoundry/bin/v2ray" ]; then
+# set default env
+APP_NAME=${APP_NAME:-"test"}
+V2_ID=${V2_ID:-"d007eab8-ac2a-4a7f-287a-f0d50ef08680"}
+V2_PATH=${V2_PATH:-"path"}
+ALTER_ID=${ALTER_ID:-"1"}
+mkdir -p $APP_NAME
+
+if [ ! -f "./config/v2ray" ]; then
     echo "${BLUE}download v2ray${END}"
-    pushd ./v2ray-cloudfoundry/bin
+    pushd ./config
     new_ver=$(curl -s https://github.com/v2fly/v2ray-core/releases/latest | grep -Po "(\d+\.){2}\d+")
     wget -q -Ov2ray.zip https://github.com/v2fly/v2ray-core/releases/download/v${new_ver}/v2ray-linux-64.zip
     if [ $? -eq 0 ]; then
@@ -45,18 +53,18 @@ if [ ! -f "./v2ray-cloudfoundry/bin/v2ray" ]; then
     popd
 fi
 
-# fake root
-mkdir -p $APP_NAME
-cp -rvf ./v2ray-cloudfoundry/Godeps ./$APP_NAME/
-cp -vf ./v2ray-cloudfoundry/main.go ./$APP_NAME/
-sed "s/APP_NAME/${APP_NAME}/" ./v2ray-cloudfoundry/Procfile > ./$APP_NAME/Procfile
-sed "s/IBM_APP_NAME/${IBM_APP_NAME}/" ./v2ray-cloudfoundry/manifest.yml > ./$APP_NAME/manifest.yml
-cp -vf ./v2ray-cloudfoundry/bin/v2ray ./$APP_NAME/$APP_NAME
-cp -vf ./v2ray-cloudfoundry/bin/config.json ./
+# cloudfoundry config
+cp -rvf ./config/Godeps ./config/main.go ./$APP_NAME/
+sed "s/APP_NAME/${APP_NAME}/" ./config/Procfile > ./$APP_NAME/Procfile
+sed "s/IBM_APP_NAME/${IBM_APP_NAME}/" ./config/manifest.yml > ./$APP_NAME/manifest.yml
+
+# v2ray config
+cp -vf ./config/v2ray ./$APP_NAME/$APP_NAME
+cp -vf ./config/config.json ./
 sed "s/V2_ID/${V2_ID}/" config.json -i
 sed "s/V2_PATH/${V2_PATH}/" config.json -i
 sed "s/ALTER_ID/${ALTER_ID}/" config.json -i
-./v2ray-cloudfoundry/bin/v2ctl config ./config.json > $APP_NAME/config.pb
+./config/v2ctl config ./config.json > $APP_NAME/config.pb
 rm ./config.json
 
 echo "${BLUE}ibmcloud login${END}"

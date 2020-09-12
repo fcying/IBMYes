@@ -1,10 +1,10 @@
 fork [https://github.com/CCChieh/IBMYes](https://github.com/CCChieh/IBMYes)  
 
 
-# 更新内容:
+# fork修改内容:
 * `Secrets` 加入 `V2_ID`, `V2_PATH`, `ALTER_ID`,  
   对应`vmess id`, `ws path`, `alterId`
-* 每周自动更新`v2ray`后重新`push`
+* 使用actions, 每周自动更新`v2ray`, 部署到 `IBM Cloud Foundray`.
 
 
 # 配置流程
@@ -43,17 +43,18 @@ addEventListener(
 * 点击右上角 Fork 到自己的github下, 点击 Settings
 * 点击 `Secrets` 建立以下几个`secret`:  
   `IBM_ACCOUNT`:　　　IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.  
-  `IBM_APP_NAME`:　　应用的名称.  
-  `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不用. 可以在IBM Cloud的管理->账户->资源组里面找到.  
-  `APP_NAME`:　　　　　v2ray改名, 防扫.  
-  `V2_ID`:　　　　　　vmess id  
-  `V2_PATH`:　　　　　ws path  
-  `ALTER_ID`:　　　　alterId  
+  `IBM_APP_NAME`:　　IBM应用的名称.  
+  `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不设. 可以在IBM Cloud的管理->账户->资源组里面找到.  
+  `APP_NAME`:　　　　　把v2ray重命名成APP_NAME, 默认值`test`.  
+  `V2_ID`:　　　　　　vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.  
+  `V2_PATH`:　　　　　ws path, 默认值`path`.  
+  `ALTER_ID`:　　　　alterId, 默认值`1`.  
 * 修改项目`README.md`(打开文件, 右上角有个 `Edit this file`的图标), 随便加个空格, 点 `Commit changes`.
 * 点击项目 Actions, 可以看到有个`IBM Cloud Deploy` 正在工作了, 每周会自动部署一次(IBM 10天不用会停).
 
-### Clash 客户端设置
-这里的客户端用的是`Clash`, 下面为对应的`vmess`部分设置.修改其中的`server`,`uuid`,`path`就好了.
+### 客户端设置
+#### Clash
+下面为对应的`vmess`部分设置.修改其中的`server`,`uuid`,`alterId`,`path`就好了.
 ```
   - name: "IBM"
     type: vmess
@@ -67,10 +68,28 @@ addEventListener(
     network: ws
     ws-path: /V2_PATH
 ```
-    server: cloudflare.com
-`server` 可以使用 `cloudflare.com`或者别的CF的比较快的IP,对应的加一个伪装设置就行
+
+#### v2rayng
 ```
+    address: cloudflare_workers.dev
+    port: 443
+    id: V2_ID
+    alterId: ALTER_ID
+    security: none
+    network: ws
+    path: /V2_PATH
+    底层传输安全: tls
+```
+
+`server` `address` 可以使用 `cloudflare.com`或者别的`CF`的比较快的IP,对应的加一个伪装设置就行.
+```
+    clash:
     server: cloudflare.com
     ws-headers:
       Host: cloudflare_workers.dev
+
+    v2rayng:
+    address: cloudflare.com
+    伪装域名: cloudflare_workers.dev
+
 ```

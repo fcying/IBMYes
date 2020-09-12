@@ -1,5 +1,5 @@
-v2ray-cloudfoundry/bin/v2ctl
-v2ray-cloudfoundry/bin/v2ray
+config/v2ctl
+config/v2ray
 Bluemix_CLI
 test.sh
 
