@@ -11,7 +11,7 @@ fork [https://github.com/CCChieh/IBMYes](https://github.com/CCChieh/IBMYes)
 
 ### 配置IBM Cloud Fonudray
 * 注册并登录[https://cloud.ibm.com/](https://cloud.ibm.com/)
-* 点击右侧 创建资源
+* 点击右侧 创建资源 
 * 点击`Cloud Foundray`
 * 创建公共应用程序
 * 填写相关信息: 区域达拉斯(免费). 内存最高256M. 应用名称. 配置资源选Go
