@@ -1,5 +1,10 @@
 applications:
 - path: .
   name: IBM_APP_NAME
+  instances: 1
   random-route: true
-  memory: 256M
+  disk_quota: 128M
+  memory: IBM_MEMORY
+  command: ./BIN_NAME -config=c.pb
+  buildpacks:
+  - binary_buildpack

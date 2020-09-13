@@ -14,7 +14,7 @@ fork [https://github.com/CCChieh/IBMYes](https://github.com/CCChieh/IBMYes)
 * 点击右侧 创建资源
 * 点击`Cloud Foundray`
 * 创建公共应用程序
-* 填写相关信息: 区域达拉斯(免费). 内存最高256M. 应用名称. 配置资源选Go
+* 填写相关信息: 区域达拉斯(免费). 内存最高256M. 应用名称. 配置资源选Python
 * 应用程序域名 就是 应用名称+域, 比如: `ibmyes.us-south.cf.appdomain.cloud`
 * 点击右侧 创建
 
@@ -40,17 +40,16 @@ addEventListener(
 
 ### 利用Github Actions 自动部署 IBM Cloud Fonudray
 * 返回 github, 到本项目 [https://github.com/fcying/IBMYes](https://github.com/fcying/IBMYes)
-* 点击右上角 Fork 到自己的github下, 点击 Settings
+* 点击右上角 `Use this template`, 生成一个自己的仓库, 在自己的仓库点击 Settings.
 * 点击 `Secrets` 建立以下几个`secret`:  
-  `IBM_ACCOUNT`:　　　IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.  
-  `IBM_APP_NAME`:　　IBM应用的名称.  
-  `RESOURSE_ID`:　　　资源组ID, 只有一个应用可以不设. 可以在IBM Cloud的管理->账户->资源组里面找到.  
-  `APP_NAME`:　　　　　把v2ray重命名成APP_NAME, 默认值`test`.  
-  `V2_ID`:　　　　　　vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.  
-  `V2_PATH`:　　　　　ws path, 默认值`path`.  
-  `ALTER_ID`:　　　　alterId, 默认值`1`.  
-* 修改项目`README.md`(打开文件, 右上角有个 `Edit this file`的图标), 随便加个空格, 点 `Commit changes`.
-* 点击项目 Actions, 可以看到有个`IBM Cloud Deploy` 正在工作了, 每周会自动部署一次(IBM 10天不用会停).
+  `IBM_ACCOUNT`: IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.  
+  `IBM_APP_NAME`: IBM应用的名称.  
+  `IBM_MEMORY`: IBM应用内存大小, 默认值`256M`.  
+  `BIN_NAME`: 把`v2ray`重命名成`BIN_NAME`, 默认值`test`.  
+  `V2_ID`: vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.  
+  `V2_PATH`: ws path, 默认值`path`.  
+  `ALTER_ID`: alterId, 默认值`1`.  
+* 点击项目 `Actions`, 点击`IBM Cloud Deploy`, 点击`Run workflow`, 后续每周会自动部署一次(IBM 10天不用会停).
 
 ### 客户端设置
 #### Clash
