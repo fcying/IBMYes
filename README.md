@@ -41,7 +41,7 @@ addEventListener(
 ### 利用Github Actions 自动部署 IBM Cloud Fonudray
 * 返回 github, 到本项目 [https://github.com/fcying/IBMYes](https://github.com/fcying/IBMYes)
 * 点击右上角 `Use this template`, 生成一个自己的仓库, 在自己的仓库点击 Settings.
-* 点击 `Secrets` 建立以下几个`secret`:  
+* 点击 `Secrets` 建立以下几个`secret`, 不修改默认值的可以不建:  
     |  |  |
     | ---- | ---- |
     | IBM_ACCOUNT  | IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.   |

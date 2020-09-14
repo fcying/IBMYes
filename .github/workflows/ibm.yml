@@ -1,8 +1,9 @@
 name: IBM Cloud Deploy
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ master, test ]
+    branches: [ master ]
   schedule:
     - cron: '0 7 * * 3'
 
