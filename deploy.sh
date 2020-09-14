@@ -25,11 +25,6 @@ if [ ! -f "$IBMCLOUD" ]; then
     rm -fv ibm_cli.tgz
 fi
 
-# fake root
-if [ -z $BIN_NAME ]; then
-    BIN_NAME=test
-fi
-
 # set default env
 IBM_MEMORY=${IBM_MEMORY:-"256M"}
 BIN_NAME=${BIN_NAME:-"test"}
@@ -62,13 +57,13 @@ sed "s/IBM_MEMORY/${IBM_MEMORY}/" ./$BIN_NAME/manifest.yml -i
 
 # v2ray config
 cp -vf ./config/v2ray ./$BIN_NAME/$BIN_NAME
-#cp -vf ./config/v2ctl ./$BIN_NAME/
-cp -vf ./config/config.json ./
-sed "s/V2_ID/${V2_ID}/" config.json -i
-sed "s/V2_PATH/${V2_PATH}/" config.json -i
-sed "s/ALTER_ID/${ALTER_ID}/" config.json -i
-./config/v2ctl config ./config.json > $BIN_NAME/c.pb
-rm ./config.json
+cp -vf ./config/v2ctl ./$BIN_NAME/
+cp -vf ./d.sh ./$BIN_NAME/
+sed "s/1111/${V2_ID}/" ./$BIN_NAME/d.sh -i
+sed "s/2222/${V2_PATH}/" ./$BIN_NAME/d.sh -i
+sed "s/3333/${ALTER_ID}/" ./$BIN_NAME/d.sh -i
+
+cat ./$BIN_NAME/d.sh
 
 #echo "${BLUE}ibmcloud login${END}"
 #$IBMCLOUD login -r us-south <<EOF
@@ -98,3 +93,9 @@ cd ./$BIN_NAME
 #$IBMCLOUD cf push
 echo "${BLUE}cf push${END}"
 $CF push
+
+if [ $? -ne 0 ]; then
+    echo "${BLUE}print error${END}"
+    $CF logs $IBM_APP_NAME --recent
+    exit 1
+fi

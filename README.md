@@ -42,13 +42,15 @@ addEventListener(
 * 返回 github, 到本项目 [https://github.com/fcying/IBMYes](https://github.com/fcying/IBMYes)
 * 点击右上角 `Use this template`, 生成一个自己的仓库, 在自己的仓库点击 Settings.
 * 点击 `Secrets` 建立以下几个`secret`:  
-  `IBM_ACCOUNT`: IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.  
-  `IBM_APP_NAME`: IBM应用的名称.  
-  `IBM_MEMORY`: IBM应用内存大小, 默认值`256M`.  
-  `BIN_NAME`: 把`v2ray`重命名成`BIN_NAME`, 默认值`test`.  
-  `V2_ID`: vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.  
-  `V2_PATH`: ws path, 默认值`path`.  
-  `ALTER_ID`: alterId, 默认值`1`.  
+    |  |  |
+    | ---- | ---- |
+    | IBM_ACCOUNT  | IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.   |
+    | IBM_APP_NAME | IBM应用的名称.|
+    | IBM_MEMORY   | IBM应用内存大小, 默认值`256M`.|
+    | BIN_NAME     | 把`v2ray`重命名成`BIN_NAME`, 默认值`test`.|
+    | V2_ID        | vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.|
+    | V2_PATH      | ws path, 默认值`path`.|
+    | ALTER_ID     | alterId, 默认值`1`.|
 * 点击项目 `Actions`, 点击`IBM Cloud Deploy`, 点击`Run workflow`, 后续每周会自动部署一次(IBM 10天不用会停).
 
 ### 客户端设置
