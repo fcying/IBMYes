@@ -52,6 +52,7 @@ addEventListener(
     | V2_PATH      | ws path, 默认值`path`.|
     | ALTER_ID     | alterId, 默认值`1`.|
 * 点击项目 `Actions`, 点击`IBM Cloud Deploy`, 点击`Run workflow`, 后续每周会自动部署一次(IBM 10天不用会停).
+* 如果需要其他配置, 可以编辑自己仓库的`config/config.json`文件.
 
 ### 客户端设置
 #### Clash

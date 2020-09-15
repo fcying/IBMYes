@@ -58,12 +58,18 @@ sed "s/IBM_MEMORY/${IBM_MEMORY}/" ./$BIN_NAME/manifest.yml -i
 # v2ray config
 cp -vf ./config/v2ray ./$BIN_NAME/$BIN_NAME
 cp -vf ./config/v2ctl ./$BIN_NAME/
-cp -vf ./d.sh ./$BIN_NAME/
-sed "s/1111/${V2_ID}/" ./$BIN_NAME/d.sh -i
-sed "s/2222/${V2_PATH}/" ./$BIN_NAME/d.sh -i
-sed "s/3333/${ALTER_ID}/" ./$BIN_NAME/d.sh -i
+{
+    echo "#! /bin/bash"
+    echo "wget https://raw.githubusercontent.com/$GITHUB_REPOSITORY/master/config/config.json"
+    echo "sed 's/V2_ID/$V2_ID/' config.json -i"
+    echo "sed 's/V2_PATH/$V2_PATH/' config.json -i"
+    echo "sed 's/ALTER_ID/$ALTER_ID/' config.json -i"
 
-cat ./$BIN_NAME/d.sh
+} > ./$BIN_NAME/d.sh
+chmod +x ./$BIN_NAME/d.sh
+
+#cat ./$BIN_NAME/d.sh
+#exit 0
 
 #echo "${BLUE}ibmcloud login${END}"
 #$IBMCLOUD login -r us-south <<EOF
