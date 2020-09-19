@@ -47,7 +47,6 @@ addEventListener(
     | IBM_ACCOUNT  | IBM Cloud的登录邮箱和密码, 一行邮箱, 一行密码.   |
     | IBM_APP_NAME | IBM应用的名称.|
     | IBM_MEMORY   | IBM应用内存大小, 默认值`256M`.|
-    | BIN_NAME     | 把`v2ray`重命名成`BIN_NAME`, 默认值`test`.|
     | V2_ID        | vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.|
     | V2_PATH      | ws path, 默认值`path`.|
     | ALTER_ID     | alterId, 默认值`1`.|

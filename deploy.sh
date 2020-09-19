@@ -27,11 +27,10 @@ fi
 
 # set default env
 IBM_MEMORY=${IBM_MEMORY:-"256M"}
-BIN_NAME=${BIN_NAME:-"test"}
 V2_ID=${V2_ID:-"d007eab8-ac2a-4a7f-287a-f0d50ef08680"}
 V2_PATH=${V2_PATH:-"path"}
 ALTER_ID=${ALTER_ID:-"1"}
-mkdir -p $BIN_NAME
+mkdir -p $IBM_APP_NAME
 
 if [ ! -f "./config/v2ray" ]; then
     echo "${BLUE}download v2ray${END}"
@@ -50,14 +49,13 @@ if [ ! -f "./config/v2ray" ]; then
 fi
 
 # cloudfoundry config
-cp -rvf ./config/manifest.yml ./$BIN_NAME/
-sed "s/BIN_NAME/${BIN_NAME}/" ./$BIN_NAME/manifest.yml -i
-sed "s/IBM_APP_NAME/${IBM_APP_NAME}/" ./$BIN_NAME/manifest.yml -i
-sed "s/IBM_MEMORY/${IBM_MEMORY}/" ./$BIN_NAME/manifest.yml -i
+cp -rvf ./config/manifest.yml ./$IBM_APP_NAME/
+sed "s/IBM_APP_NAME/${IBM_APP_NAME}/" ./$IBM_APP_NAME/manifest.yml -i
+sed "s/IBM_MEMORY/${IBM_MEMORY}/" ./$IBM_APP_NAME/manifest.yml -i
 
 # v2ray config
-cp -vf ./config/v2ray ./$BIN_NAME/$BIN_NAME
-cp -vf ./config/v2ctl ./$BIN_NAME/
+cp -vf ./config/v2ray ./$IBM_APP_NAME/$IBM_APP_NAME
+cp -vf ./config/v2ctl ./$IBM_APP_NAME/
 {
     echo "#! /bin/bash"
     echo "wget https://raw.githubusercontent.com/$GITHUB_REPOSITORY/master/config/config.json"
@@ -65,10 +63,10 @@ cp -vf ./config/v2ctl ./$BIN_NAME/
     echo "sed 's/V2_PATH/$V2_PATH/' config.json -i"
     echo "sed 's/ALTER_ID/$ALTER_ID/' config.json -i"
 
-} > ./$BIN_NAME/d.sh
-chmod +x ./$BIN_NAME/d.sh
+} > ./$IBM_APP_NAME/d.sh
+chmod +x ./$IBM_APP_NAME/d.sh
 
-#cat ./$BIN_NAME/d.sh
+#cat ./$IBM_APP_NAME/d.sh
 #exit 0
 
 #echo "${BLUE}ibmcloud login${END}"
@@ -94,7 +92,7 @@ $CF login -a https://api.us-south.cf.cloud.ibm.com <<EOF
 $IBM_ACCOUNT
 EOF
 
-cd ./$BIN_NAME
+cd ./$IBM_APP_NAME
 #echo "${BLUE}ibmcloud cf push${END}"
 #$IBMCLOUD cf push
 echo "${BLUE}cf push${END}"
