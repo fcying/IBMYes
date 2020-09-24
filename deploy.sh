@@ -3,7 +3,7 @@
 cd $(dirname $0)
 
 IBMCLOUD=$(pwd)/Bluemix_CLI/bin/ibmcloud
-CF=~/.bluemix/cfcli/cf
+CF=~/.bluemix/.cf/cfcli/cf
 #BLUE="\e[00;34m"
 #RED="\e[00;31m"
 #END="\e[0m"
