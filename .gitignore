@@ -1,5 +1,7 @@
 config/v2ctl
 config/v2ray
+config/geoip.dat
+config/geosite.dat
 Bluemix_CLI
 test.sh
 

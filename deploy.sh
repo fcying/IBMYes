@@ -30,6 +30,7 @@ IBM_MEMORY=${IBM_MEMORY:-"128M"}
 V2_ID=${V2_ID:-"d007eab8-ac2a-4a7f-287a-f0d50ef08680"}
 V2_PATH=${V2_PATH:-"path"}
 ALTER_ID=${ALTER_ID:-"1"}
+VLESS_EN=${VLESS_EN:-"false"}
 mkdir -p $IBM_APP_NAME
 
 if [ ! -f "./config/v2ray" ]; then
@@ -38,7 +39,7 @@ if [ ! -f "./config/v2ray" ]; then
     new_ver=$(curl -s https://github.com/v2fly/v2ray-core/releases/latest | grep -Po "(\d+\.){2}\d+")
     wget -q -Ov2ray.zip https://github.com/v2fly/v2ray-core/releases/download/v${new_ver}/v2ray-linux-64.zip
     if [ $? -eq 0 ]; then
-        7z x v2ray.zip v2ray v2ctl
+        7z x v2ray.zip v2ray v2ctl *.dat
         chmod 700 v2ctl v2ray
     else
         echo "${RED}download new version failed!${END}"
@@ -56,36 +57,33 @@ sed "s/IBM_MEMORY/${IBM_MEMORY}/" ./$IBM_APP_NAME/manifest.yml -i
 # v2ray config
 cp -vf ./config/v2ray ./$IBM_APP_NAME/$IBM_APP_NAME
 cp -vf ./config/v2ctl ./$IBM_APP_NAME/
-{
-    echo "#! /bin/bash"
-    echo "wget https://raw.githubusercontent.com/$GITHUB_REPOSITORY/master/config/config.json"
-    echo "sed 's/V2_ID/$V2_ID/' config.json -i"
-    echo "sed 's/V2_PATH/$V2_PATH/' config.json -i"
-    echo "sed 's/ALTER_ID/$ALTER_ID/' config.json -i"
 
-} > ./$IBM_APP_NAME/d.sh
+branch=${GITHUB_REF#refs/heads/}
+if [ $VLESS_EN == "false" ]; then
+    {
+        echo "#! /bin/bash"
+        echo "wget -Oconfig.json https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$branch/config/config_vmess.json"
+        echo "sed 's/V2_ID/$V2_ID/' config.json -i"
+        echo "sed 's/V2_PATH/$V2_PATH/' config.json -i"
+        echo "sed 's/ALTER_ID/$ALTER_ID/' config.json -i"
+    } > ./$IBM_APP_NAME/d.sh
+else
+    {
+        echo "#! /bin/bash"
+        echo "wget -Oconfig.json https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$branch/config/config_vless.json"
+        echo "sed 's/V2_ID/$V2_ID/' config.json -i"
+        echo "sed 's/V2_PATH/$V2_PATH/' config.json -i"
+    } > ./$IBM_APP_NAME/d.sh
+fi
 chmod +x ./$IBM_APP_NAME/d.sh
 
 #cat ./$IBM_APP_NAME/d.sh
 #exit 0
 
-#echo "${BLUE}ibmcloud login${END}"
-#$IBMCLOUD login -r us-south <<EOF
-#$IBM_ACCOUNT
-#n
-#EOF
-
-#if [ -n "$RESOURSE_ID" ]; then
-#    echo "${BLUE}ibmcloud set RESOURSE_ID${END}"
-#    $IBMCLOUD target -g $RESOURSE_ID
-#fi
-
-if [ ! -f "$HOME/.bluemix/cfcli/cf" ]; then
+if [ ! -f "$CF" ]; then
     echo "${BLUE}ibmcloud cf install${END}"
-    $IBMCLOUD cf install
-    #$IBMCLOUD target --cf-api 'https://api.us-south.cf.cloud.ibm.com'
+    $IBMCLOUD cf install -f
 fi
-#$IBMCLOUD target --cf
 
 echo "${BLUE}cf login${END}"
 $CF login -a https://api.us-south.cf.cloud.ibm.com <<EOF
@@ -93,13 +91,11 @@ $IBM_ACCOUNT
 EOF
 
 cd ./$IBM_APP_NAME
-#echo "${BLUE}ibmcloud cf push${END}"
-#$IBMCLOUD cf push
 echo "${BLUE}cf push${END}"
 $CF push
 
 if [ $? -ne 0 ]; then
-    echo "${BLUE}print error${END}"
+    echo "${BLUE}print cf push error${END}"
     $CF logs $IBM_APP_NAME --recent
     exit 1
 fi
