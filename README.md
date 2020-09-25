@@ -51,6 +51,7 @@ addEventListener(
     | V2_ID        | vmess id, 默认值`d007eab8-ac2a-4a7f-287a-f0d50ef08680`.|
     | V2_PATH      | ws path, 默认值`path`.|
     | ALTER_ID     | alterId, 默认值`1`.|
+    | VLESS_EN     | 是否使用`vless`, 默认值`false`.|
 * 点击项目 `Actions`, 点击`IBM Cloud Deploy`, 点击`Run workflow`, 后续每周会自动部署一次(IBM 10天不用会停).
 * 如果需要其他配置, 可以编辑自己仓库的`config/config.json`文件.
 

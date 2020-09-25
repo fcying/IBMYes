@@ -3,7 +3,7 @@ name: IBM Cloud Deploy
 on:
   workflow_dispatch:
   push:
-    branches: [ master,test ]
+    branches: [ master ]
   schedule:
     - cron: '0 7 * * 3'
 
@@ -19,6 +19,7 @@ env:
   V2_ID: ${{ secrets.V2_ID }}
   V2_PATH: ${{ secrets.V2_PATH }}
   ALTER_ID: ${{ secrets.ALTER_ID }}
+  VLESS_EN: ${{ secrets.VLESS_EN }}
 
 jobs:
   deploy:
